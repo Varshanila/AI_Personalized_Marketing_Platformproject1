@@ -60,7 +60,7 @@ Frontend: HTML, CSS, JavaScript
 
 Backend: Python (Flask)
 
-Database: MySQL
+AWS Services : DynamoDB , EC2 , SNS , IAM
 
 📂 Project Modules
 
