@@ -11,8 +11,6 @@ To automate marketing campaigns through scheduling
 
 To implement role-based access control (Admin & User)
 
-To simulate real-world AI-driven digital marketing systems
-
 🛠️ Features
 🔐 Authentication & Authorization
 
@@ -38,39 +36,28 @@ Personalized product display for users
 
 Recommendation logic based on user interests and categories
 
-📢 Campaign Management
+📢 Campaign Creation:
 
-Create marketing campaigns
+Based on User interest the Campaign message should be sent 
 
-Define target audience and message
-
-Schedule campaigns for future delivery
-
-📊 Campaign Status Tracking
-
-Draft – Campaign created but not scheduled
-
-Scheduled – Campaign planned for a future time
-
-Sent – Campaign successfully delivered
 
 🧰 Technologies Used
 
-Frontend: HTML, CSS, JavaScript
+1.Frontend: HTML, CSS, JavaScript
 
-Backend: Python (Flask)
+2.Backend: Python (Flask)
 
-AWS Services : DynamoDB , EC2 , SNS , IAM
+3.AWS Services : DynamoDB , EC2 , SNS , IAM
 
 📂 Project Modules
 
 User Authentication Module
 
-Admin Dashboard
+1.Admin Dashboard
 
-Product Management Module
+2.Product Management Module
 
-Personalization & Recommendation Module
+3.Personalization & Recommendation Module
 
 Campaign Scheduling Module
 
