@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, j
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from datetime import datetime
+from uuid import uuid4
 
 app = Flask(__name__)
 app.secret_key = "aws-ai-marketing-platform-2026-secret-key"
@@ -20,7 +21,7 @@ admin_db = {
 }
 
 campaigns_db = []
-
+products = []
 # ---------------- DECORATORS ---------------- #
 def login_required(f):
     @wraps(f)
@@ -177,7 +178,66 @@ def generate_campaign():
 
     campaigns_db.insert(0, campaign)
     return jsonify(campaign)
+@app.route('/api/admin/check')
+def admin_check():
+    # assume admin already logged in
+    return jsonify({"isAdmin": True})
 
+# -----------------------------
+# GET ALL PRODUCTS (ADMIN)
+# -----------------------------
+@app.route('/api/admin/products', methods=['GET'])
+def get_products():
+    return jsonify(products)
+
+# -----------------------------
+# ADD PRODUCT
+# -----------------------------
+@app.route('/api/admin/products', methods=['POST'])
+def add_product():
+    data = request.json
+    product = {
+        "id": str(uuid4()),
+        "name": data["name"],
+        "price": data["price"],
+        "category": data["category"],
+        "description": data.get("description"),
+        "icon": data.get("icon", "📦"),
+        "badge": data.get("badge"),
+        "status": data.get("status", "active"),
+        "url": data.get("url"),
+        "searches": 0
+    }
+    products.append(product)
+    return jsonify({"message": "Product added"}), 201
+
+# -----------------------------
+# UPDATE PRODUCT
+# -----------------------------
+@app.route('/api/admin/products/<pid>', methods=['PUT'])
+def update_product(pid):
+    data = request.json
+    for p in products:
+        if p["id"] == pid:
+            p.update(data)
+            return jsonify({"message": "Updated"})
+    return "Not found", 404
+
+# -----------------------------
+# DELETE PRODUCT
+# -----------------------------
+@app.route('/api/admin/products/<pid>', methods=['DELETE'])
+def delete_product(pid):
+    global products
+    products = [p for p in products if p["id"] != pid]
+    return jsonify({"message": "Deleted"})
+
+# -----------------------------
+# USER API (READ ONLY)
+# -----------------------------
+@app.route('/api/products', methods=['GET'])
+def user_products():
+    return jsonify([p for p in products if p["status"] == "active"])
 # ---------------- LOGOUT ---------------- #
 @app.route("/logout")
 def logout():
