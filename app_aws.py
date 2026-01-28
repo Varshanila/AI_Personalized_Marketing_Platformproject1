@@ -22,8 +22,7 @@ products_table = dynamodb.Table('Products')
 campaigns_table = dynamodb.Table('Campaigns')
 
 # 🔥 SNS TOPIC (Create SNS topic and get ARN)
-SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:YOUR-ACCOUNT-ID:marketing-notifications'
-
+SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:539247489202:aws_ai'
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
